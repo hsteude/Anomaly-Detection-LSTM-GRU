@@ -3,6 +3,17 @@ Anomaly-Detection-LSTM-GRU
 
 Some experiments with LSTMs and GRUs for anomaly detection use cases on publicly available dataset(s).
 
+Run the experiment
+---
+- download the whole 2015 folder from:  https://drive.google.com/drive/folders/1ABZKdclka3e2NXBSxS9z2YF59p7g2Y5I
+- copy all the zip archives the raw data directory
+- navigate to the project root and run:
+```shell
+unzip './data/raw/*.zip' -d ./data/interim 
+mv data/interim/SWaT.A1\ _\ A2_Dec\ 2015/*.pdf references
+```
+
+
 Project Organization
 ------------
 
