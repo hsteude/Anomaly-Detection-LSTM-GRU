@@ -3,9 +3,13 @@ Anomaly-Detection-LSTM-GRU
 
 Some experiments with LSTMs and GRUs for anomaly detection use cases on publicly available dataset(s).
 
+General Notes (mostly for myself)
+--
+Some helpful dataset description can be found [here](https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/)
+
 Run the experiment
 ---
-- download the whole 2015 folder from:  https://drive.google.com/drive/folders/1ABZKdclka3e2NXBSxS9z2YF59p7g2Y5I
+- download the whole 2015 folder from [this link](https://drive.google.com/drive/folders/1ABZKdclka3e2NXBSxS9z2YF59p7g2Y5I)
 - copy all the zip archives the raw data directory
 - navigate to the project root and run:
 ```shell
@@ -49,8 +53,7 @@ Project Organization
     │   ├── features       <- Scripts to turn raw data into features for modeling
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
+    │   │                     predictions
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │
