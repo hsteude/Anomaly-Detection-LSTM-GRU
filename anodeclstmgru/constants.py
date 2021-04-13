@@ -9,4 +9,5 @@ LABELS_FILE_PATH = os.path.join(DATA_FOLDER_PATH, 'List_of_attacks_Final.xlsx')
 PHYS_NORMAL_PATHS = [
     os.path.join(PHYSICAL_FOLDER_PATH, f)
     for f in ['SWaT_Dataset_Normal_v0.xlsx', 'SWaT_Dataset_Normal_v1.xlsx']]
+PHYS_ATTACK_PATH = os.path.join(PHYSICAL_FOLDER_PATH, 'SWaT_Dataset_Attack_v0.xlsx')
 HDF_STORE_PATH = os.path.join(DATA_FOLDER_PATH, 'data_store.h5')
