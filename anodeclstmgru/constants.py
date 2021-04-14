@@ -4,6 +4,7 @@ from datetime import datetime
 # PATHS
 DATA_FOLDER_PATH = os.path.join('.', 'data', 'interim',
                                 'SWaT.A1 _ A2_Dec 2015')
+PREPROC_DATA_FOLDER = os.path.join('.', 'data', 'processed')
 PHYSICAL_FOLDER_PATH = os.path.join(DATA_FOLDER_PATH, 'Physical')
 NETWORK_FOLDER_PATH = os.path.join(DATA_FOLDER_PATH, 'NETWORK')
 LABELS_FILE_PATH = os.path.join(DATA_FOLDER_PATH, 'List_of_attacks_Final.xlsx')
@@ -13,6 +14,7 @@ PHYS_NORMAL_PATHS = [
 PHYS_ATTACK_PATH = os.path.join(
     PHYSICAL_FOLDER_PATH, 'SWaT_Dataset_Attack_v0.xlsx')
 HDF_STORE_PATH = os.path.join(DATA_FOLDER_PATH, 'data_store.h5')
+HDF_STORE_PATH_PREPROC = os.path.join(PREPROC_DATA_FOLDER, 'data_store.h5')
 
 MIN_DATE = datetime(2015, 12, 22)
 MAX_DATE = datetime(2016, 1, 2)
