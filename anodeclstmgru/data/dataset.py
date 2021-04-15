@@ -15,7 +15,6 @@ class SWaTSDataset(Dataset):
         self.df = store[df_key][const.SENSOR_COLS]
         if sample_freq:
             self.df = self.df.resample(sample_freq).mean()
-            breakpoint()
         self.df = self.df.reset_index(drop=True)
         store.close()
         scaler = StandardScaler()

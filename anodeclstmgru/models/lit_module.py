@@ -6,7 +6,7 @@ from pytorch_lightning.metrics import MeanAbsoluteError as MSE
 
 class LSTMEncoder(torch.nn.Module):
     def __init__(self, input_size: int = 51, hidden_size: int = 128,
-                 embedding_size: int = 64):
+                 embedding_size: int = 64, *args, **kwargs):
         super(LSTMEncoder, self).__init__()
         self.layer1 = nn.LSTM(input_size=input_size, batch_first=True,
                               hidden_size=hidden_size).float()
@@ -25,7 +25,8 @@ class LSTMEncoder(torch.nn.Module):
 
 class LSTMDecoder(torch.nn.Module):
     def __init__(self, input_size: int = 51, hidden_size: int = 128,
-                 embedding_size: int = 64, seq_len: int = 100):
+                 embedding_size: int = 64, seq_len: int = 100,
+                 *args, **kwargs):
         super(LSTMDecoder, self).__init__()
         self.layer1 = nn.LSTM(input_size=embedding_size, batch_first=True,
                               hidden_size=hidden_size).float()
@@ -43,10 +44,20 @@ class LSTMDecoder(torch.nn.Module):
 
 class AutoEncoderLitModule(pl.LightningModule):
 
+    @staticmethod
+    def add_model_specific_args(parent_parser):
+        parser = parent_parser.add_argument_group("AutoEncoderLitModule")
+        parser.add_argument('--learning_rate', type=float, default=1e-3)
+        parser.add_argument('--hidden_size', type=int, default=64)
+        parser.add_argument('--embedding_size', type=int, default=128)
+        return parent_parser
+
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.encoder = LSTMEncoder()
-        self.decoder = LSTMDecoder()
+        # self.hparams is available only after 'save_hyperparameters' is called
+        self.save_hyperparameters()
+        self.encoder = LSTMEncoder(**self.hparams)
+        self.decoder = LSTMDecoder(**self.hparams)
         self.metric = MSE()
 
     def forward(self, x):
@@ -57,6 +68,8 @@ class AutoEncoderLitModule(pl.LightningModule):
         embedding = self.encoder(x)
         x_hat = self.decoder(embedding)
         loss = self.metric(x, x_hat)
+        self.logger.experiment.add_scalars("losses", {"train_loss": loss})
+
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -71,8 +84,9 @@ class AutoEncoderLitModule(pl.LightningModule):
         x_hat = self.decoder(embedding)
 
         loss = self.metric(x, x_hat)
-        self.log(f'{prefix}_loss', loss)
+        self.logger.experiment.add_scalars("losses", {f'{prefix}_loss': loss})
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
+        optimizer = torch.optim.Adam(self.parameters(),
+                                     lr=self.hparams.learning_rate)
         return optimizer
