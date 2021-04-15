@@ -38,7 +38,8 @@ class DataCleaner():
     @staticmethod
     def _clean_attack_column(dfs: list) -> list:
         for df in dfs:
-            df.loc[df['Normal/Attack'] == 'A ttack', 'Normal/Attack'] = 'Attack'
+            df.loc[df['Normal/Attack'] == 'A ttack',
+                   'Normal/Attack'] = 'Attack'
         return dfs
 
     def _store_dfs(self, dfs: list):
