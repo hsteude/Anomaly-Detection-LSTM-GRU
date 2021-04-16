@@ -6,10 +6,12 @@ from pytorch_lightning.metrics import MeanAbsoluteError as MSE
 
 class LSTMEncoder(torch.nn.Module):
     def __init__(self, input_size: int = 51, hidden_size: int = 128,
-                 embedding_size: int = 64, *args, **kwargs):
+                 embedding_size: int = 64, num_lstm_layer: int = 1,
+                 *args, **kwargs):
         super(LSTMEncoder, self).__init__()
         self.layer1 = nn.LSTM(input_size=input_size, batch_first=True,
-                              hidden_size=hidden_size).float()
+                              hidden_size=hidden_size,
+                              num_layers=num_lstm_layer).float()
         self.layer2 = nn.LSTM(input_size=hidden_size, batch_first=True,
                               hidden_size=embedding_size).float()
         self.embedding_size = embedding_size
@@ -25,11 +27,12 @@ class LSTMEncoder(torch.nn.Module):
 
 class LSTMDecoder(torch.nn.Module):
     def __init__(self, input_size: int = 51, hidden_size: int = 128,
-                 embedding_size: int = 64, seq_len: int = 100,
-                 *args, **kwargs):
+                 embedding_size: int = 64, num_lstm_layer: int = 1,
+                 seq_len: int = 100, *args, **kwargs):
         super(LSTMDecoder, self).__init__()
         self.layer1 = nn.LSTM(input_size=embedding_size, batch_first=True,
-                              hidden_size=hidden_size).float()
+                              hidden_size=hidden_size,
+                              num_layers=num_lstm_layer).float()
         self.layer2 = nn.LSTM(input_size=hidden_size, batch_first=True,
                               hidden_size=input_size).float()
         self.seq_len = seq_len
@@ -50,6 +53,7 @@ class AutoEncoderLitModule(pl.LightningModule):
         parser.add_argument('--learning_rate', type=float, default=1e-3)
         parser.add_argument('--hidden_size', type=int, default=64)
         parser.add_argument('--embedding_size', type=int, default=128)
+        parser.add_argument('--num_lstm_layer', type=int, default=1)
         return parent_parser
 
     def __init__(self, *args, **kwargs):

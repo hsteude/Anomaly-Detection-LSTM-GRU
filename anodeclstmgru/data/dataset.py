@@ -27,7 +27,7 @@ class SWaTSDataset(Dataset):
         # create random number between 0 and len(df) - window size
         start_idx_max = len(self.df) - self.window_size
         start_idxs = np.random.randint(0, start_idx_max, self.sample_size)
-        df = self.df[const.SENSOR_COLS].reset_index()
+        df = self.df.reset_index()[const.SENSOR_COLS]
         return np.array(
             [df.loc[i:i+self.window_size-1].values.astype(np.float32)
              for i in start_idxs])
