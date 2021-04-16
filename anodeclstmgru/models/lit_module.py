@@ -61,7 +61,9 @@ class AutoEncoderLitModule(pl.LightningModule):
         self.metric = MSE()
 
     def forward(self, x):
-        return self.encoder(x)
+        x = self.encoder(x)
+        x = self.decoder(x)
+        return x
 
     def training_step(self, batch, batch_idx):
         x = batch
