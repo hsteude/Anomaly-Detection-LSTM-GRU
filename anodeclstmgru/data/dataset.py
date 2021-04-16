@@ -9,7 +9,8 @@ class SWaTSDataset(Dataset):
     """Write me!"""
 
     def __init__(self, normal: bool = True, window_size: int = 100,
-                 sample_size: int = 100, sample_freq: str = None):
+                 sample_size: int = 100, sample_freq: str = None,
+                 *args, **kwargs):
         store = pd.HDFStore(const.HDF_STORE_PATH_PREPROC)
         df_key = 'df_norm' if normal else 'df_att'
         self.df = store[df_key]

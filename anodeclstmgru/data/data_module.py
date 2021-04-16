@@ -21,9 +21,6 @@ class SWaTSDataModule(pl.LightningDataModule):
         self.dims = (batch_size, window_size, len(const.SENSOR_COLS))
 
     def setup(self, stage=None):
-        self.swats_test = SWaTSDataset(
-            normal=False, window_size=self.window_size,
-            sample_size=self.sample_size, sample_freq=self.sample_freq)
         swat_full = SWaTSDataset(
             normal=True, window_size=self.window_size,
             sample_size=self.sample_size, sample_freq=self.sample_freq)
@@ -38,9 +35,4 @@ class SWaTSDataModule(pl.LightningDataModule):
 
     def val_dataloader(self):
         return DataLoader(self.swats_val, batch_size=self.batch_size,
-                          num_workers=self.num_workers)
-
-
-    def test_dataloader(self):
-        return DataLoader(self.swats_test, batch_size=self.batch_size,
                           num_workers=self.num_workers)
