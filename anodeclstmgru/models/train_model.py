@@ -29,6 +29,7 @@ if __name__ == '__main__':
     parser.add_argument('--window_size', type=int, default=100)
     parser.add_argument('--sample_size', type=int, default=1000)
     parser.add_argument('--sample_freq', type=str, default='5s')
+    parser.add_argument('--test_set_step_size', type=int, default=100)
     parser.add_argument('--validation_split', type=float, default=0.05)
     parser.add_argument('--num_workers', type=int, default=12)
     # Lit Module related

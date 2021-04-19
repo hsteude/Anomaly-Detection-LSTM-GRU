@@ -5,13 +5,13 @@ from pytorch_lightning.metrics import MeanAbsoluteError as MSE
 
 
 class LSTMEncoder(torch.nn.Module):
-    def __init__(self, input_size: int = 51, hidden_size: int = 128,
-                 embedding_size: int = 64, num_lstm_layer: int = 1,
+    def __init__(self, input_size: int = 51,
+                 hidden_size: int = 256,
+                 embedding_size: int = 512,
                  *args, **kwargs):
         super(LSTMEncoder, self).__init__()
         self.layer1 = nn.LSTM(input_size=input_size, batch_first=True,
-                              hidden_size=hidden_size,
-                              num_layers=num_lstm_layer).float()
+                              hidden_size=hidden_size).float()
         self.layer2 = nn.LSTM(input_size=hidden_size, batch_first=True,
                               hidden_size=embedding_size).float()
         self.embedding_size = embedding_size
@@ -26,13 +26,12 @@ class LSTMEncoder(torch.nn.Module):
 
 
 class LSTMDecoder(torch.nn.Module):
-    def __init__(self, input_size: int = 51, hidden_size: int = 128,
-                 embedding_size: int = 64, num_lstm_layer: int = 1,
+    def __init__(self, input_size: int = 51,
+                 hidden_size: int = 256, embedding_size: int = 512,
                  seq_len: int = 100, *args, **kwargs):
         super(LSTMDecoder, self).__init__()
         self.layer1 = nn.LSTM(input_size=embedding_size, batch_first=True,
-                              hidden_size=hidden_size,
-                              num_layers=num_lstm_layer).float()
+                              hidden_size=hidden_size).float()
         self.layer2 = nn.LSTM(input_size=hidden_size, batch_first=True,
                               hidden_size=input_size).float()
         self.seq_len = seq_len
