@@ -30,7 +30,6 @@ class DataCleaner():
             df = df.drop(' Timestamp', axis=1)
             df = df.set_index('Timestamp', drop=True)
             out.append(df)
-        breakpoint()
         return out
 
     @staticmethod
@@ -58,7 +57,6 @@ class DataCleaner():
             self.out_store[key] = df
 
     def preprocess(self):
-        breakpoint()
         df_norm, df_att, df_labels = self._read_dfs()
         df_norm, df_att = self._to_timeseries([df_norm, df_att])
         df_norm, df_att = self._fix_column_names([df_norm, df_att])

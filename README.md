@@ -2,14 +2,16 @@ Anomaly-Detection-LSTM-GRU
 ==============================
 
 Some experiments with LSTMs and GRUs for anomaly detection use cases on publicly available dataset(s).
-We demonstrate the use of a Seq2Seq Autoencoder for detecting anomalies in multivariate time series.
-The data we use was create in a scaled down water treatment system for research purposes. 
+We demonstrate the use of a Seq2Seq autoencoder for detecting anomalies in multivariate time series.
+The data we used was created in a scaled down water treatment system for research purposes.
+That thing looks like this:
 ![Water treatment plant](./references/plant_pic.png)
 The corresponding paper can be found [here](https://link.springer.com/chapter/10.1007%2F978-3-319-71368-7_8).
 Some helpful dataset description can be found [here](https://itrust.sutd.edu.sg/itrust-labs_datasets/dataset_info/)
 
 Run the experiment
 ---
+To reproduce the experiment follow these steps:
 - clone this repo
 - download the whole 2015 folder from [this link](https://drive.google.com/drive/folders/1ABZKdclka3e2NXBSxS9z2YF59p7g2Y5I)
 - copy all the zip archives the raw data directory
@@ -20,7 +22,7 @@ mv ./data/interim/SWaT.A1\ _\ A2_Dec\ 2015/*.pdf ./references
 mv ./data/interim/SWaT.A1 _ A2_Dec 2015/* ./data/interim/
 rm -r ./data/interim/SWaT.A1 _ A2_Dec 2015
 ```
-- set up virtual environment (conda in my case) and install the dependencies. From the root of this project, run:
+- set up a virtual environment (conda in my case) and install the dependencies. From the root of this project, run:
 ```shell
 conda create -n ano 
 conda activate ano
@@ -39,11 +41,11 @@ python ./anodeclstmgru/data/create_h5_file.py
 ```shell
 python anodeclstmgru/data/data_preparation.py
 ```
-- To kick off model training processes, you  can modify and use the scripts stored in the 'utils' directory. E.g.:
+- To kick off a model training processes, you  can modify and use the scripts stored in the 'utils' directory. E.g.:
 ```shell
 ./utils/run_training_gpu.sh
 ```
-- I you like to see the training process in a tensorboard, run:
+- If you like to see the training process in a tensorboard, run:
 ```shell
 tensorbaord --logdir lightning_logs
 ```
@@ -108,44 +110,3 @@ Project Organization
     ├── run_training_gpu.sh
     └── run_training_no_gpu.sh
 ```
-
-
-
-
-    ├── LICENSE
-    ├── README.md          <- This file =)
-    ├── data
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── anodeclstmgru      <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │                     predictions
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
-
-
---------
-
