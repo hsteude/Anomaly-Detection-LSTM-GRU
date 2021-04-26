@@ -6,7 +6,7 @@ python ./anodeclstmgru/models/train_model.py \
   --batch_size=64 \
   --window_size=500 \
   --sample_size=10000 \
-  --sample_freq="10s"\
+  --sample_freq="1s"\
   --validation_split=0.05 \
   --test_set_step_size=100 \
   --hidden_size=512 \

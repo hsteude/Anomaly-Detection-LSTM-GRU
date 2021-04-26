@@ -1,12 +1,16 @@
 # This module performs some basic data preparation steps
 import pandas as pd
 import anodeclstmgru.constants as const
+from anodeclstmgru.data.create_h5_file import run as create_data_store
+import os
 
 
 class DataCleaner():
     def __init__(self):
-        self.in_store = pd.HDFStore(const.HDF_STORE_PATH)
+        self.in_store = pd.HDFStore(const.HDF_STORE_PATH_INTERIM)
         self.out_store = pd.HDFStore(const.HDF_STORE_PATH_PREPROC)
+        if not os.path.isfile(const.HDF_STORE_PATH_INTERIM):
+            create_data_store()
 
     def _close_data_stores(self):
         self.in_store.close()
@@ -20,7 +24,14 @@ class DataCleaner():
 
     @staticmethod
     def _to_timeseries(dfs: list) -> list:
-        return [df.set_index('Timestamp', drop=True) for df in dfs]
+        out = []
+        for df in dfs:
+            df['Timestamp'] = pd.to_datetime(df[' Timestamp'])
+            df = df.drop(' Timestamp', axis=1)
+            df = df.set_index('Timestamp', drop=True)
+            out.append(df)
+        breakpoint()
+        return out
 
     @staticmethod
     def _fix_column_names(dfs: list) -> list:
@@ -47,6 +58,7 @@ class DataCleaner():
             self.out_store[key] = df
 
     def preprocess(self):
+        breakpoint()
         df_norm, df_att, df_labels = self._read_dfs()
         df_norm, df_att = self._to_timeseries([df_norm, df_att])
         df_norm, df_att = self._fix_column_names([df_norm, df_att])
