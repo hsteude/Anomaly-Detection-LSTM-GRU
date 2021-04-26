@@ -26,7 +26,7 @@ rm -r ./data/interim/SWaT.A1 _ A2_Dec 2015
 ```shell
 conda create -n ano 
 conda activate ano
-pip isntal -e .
+pip install -e .
 ```
 - Optional: if you want to have reproduce exactly the environment I was working in, run the following with the 'ano' environment activated (all my development tools are also listed):
 ```shell
