@@ -28,9 +28,9 @@ conda create -n ano
 conda activate ano
 pip install -e .
 ```
-- Optional: if you want to have reproduce exactly the environment I was working in, run the following with the 'ano' environment activated (all my development tools are also listed):
+- Optional: if you want to reproduce exactly the environment I was working in, run the following with the 'ano' environment activated (all my development tools are also listed):
 ```shell
-pip insatll -r requirements.txt
+pip install -r requirements.txt
 ```
 - Now run the following command to transform the excel files into a h5 data store 
 ```shell
